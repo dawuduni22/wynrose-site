@@ -15,7 +15,6 @@
   <nav class="nav" aria-label="Main">
     <!-- <a href="research.html">Research</a> -->
     <a href="about.html" aria-current="page">About</a>
-    <a href="disclaimer.html">Disclaimer</a>
   </nav>
 </div>
 
@@ -25,14 +24,17 @@
 </header>
 
 <div class="skyline" aria-hidden="true">
-  <img src="assets/skyline.jpg" alt="">
+  <picture>
+    <source media="(max-width: 640px)" srcset="assets/skyline-mobile.jpg">
+    <img src="assets/skyline.jpg" alt="">
+  </picture>
 </div>
 
 <main>
   <section class="wrap section">
     <div class="prose">
       <p>Wynrose Investment Research is an independent research firm covering
-      companies listed on the exchanges of the Arabian Gulf, principally the
+      companies listed on the exchanges of the GCC, principally the
       Abu Dhabi Securities Exchange, the Dubai Financial Market and Tadawul.</p>
 
       <p>We publish long-form research on individual companies, on sectors, and
@@ -64,12 +66,12 @@
       <nav class="footer-links" aria-label="Footer">
         <!-- <a href="research.html">Research</a> -->
         <a href="about.html">About</a>
-        <a href="disclaimer.html">Disclaimer</a>
+        <a href="disclaimer.html">Important Information</a>
         <a href="mailto:contact@wynrose.org">contact@wynrose.org</a>
       </nav>
     </div>
     <div class="footer-legal">
-      <span>Research published for informational purposes only. Not investment advice. <a href="disclaimer.html">Full disclaimer</a>.</span>
+      <span>Research published for informational purposes only. Not investment advice. <a href="disclaimer.html">Important information</a>.</span>
       <span>&copy; 2026 Wynrose Investment Research</span>
     </div>
   </div>

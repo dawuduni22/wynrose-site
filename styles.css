@@ -127,21 +127,22 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   border-top: 1px solid var(--hair);
   border-bottom: 1px solid var(--hair);
 }
+.skyline picture { position: absolute; inset: 0; display: block; }
 .skyline img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center bottom;
-  opacity: 0.42;          /* lower toward 0.30 if a photograph feels too strong */
+  object-position: center center;   /* try "center bottom" for a true skyline */
+  opacity: 0.52;
 }
 .skyline::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: rgba(255, 255, 255, 0.30);   /* the white fade */
+  background: rgba(255, 255, 255, 0.20);   /* the white fade */
 }
 
 /* ------------------------------------------------------------ sections -- */
