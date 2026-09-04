@@ -4,6 +4,11 @@
      #CBCBCB  logo ground  -> bands (skyline strip, footer)
      #000000  wordmark     -> all text
      #7A0000  the dot      -> only accent, used sparingly
+
+   LAYOUT RULE: every horizontal edge on the site comes from .wrap and
+   nothing else. Never use the `padding` shorthand on an element that also
+   carries .wrap — the shorthand resets padding-left/right to 0 and breaks
+   the alignment. Use padding-block (or padding-top / padding-bottom).
    ========================================================================== */
 
 :root {
@@ -15,16 +20,13 @@
   --accent: #7A0000;
 
   --measure: 62ch;
-  --gutter:  clamp(20px, 6vw, 88px);
+  --gutter:  64px;   /* fixed, not vw — so browser zoom scales everything together */
   --maxw:    1180px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  overflow-x: hidden;
-}
+html { -webkit-text-size-adjust: 100%; overflow-x: hidden; }
 
 body {
   margin: 0;
@@ -43,9 +45,13 @@ a { color: var(--ink); text-decoration: none; }
 a:hover { color: var(--accent); }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+/* ------------------------------------------------------ the only grid -- */
+
 .wrap {
+  width: 100%;
   max-width: var(--maxw);
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
   padding-left: var(--gutter);
   padding-right: var(--gutter);
 }
@@ -57,21 +63,21 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 /* ------------------------------------------------------------- top bar -- */
 
 .topbar {
-  padding-top: 24px;
-  padding-bottom: 20px;
+  padding-block: 26px 20px;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 16px 24px;
+  gap: 14px 24px;
   flex-wrap: wrap;
+  min-height: 62px;
 }
-.topbar-mark { font-size: 20px; letter-spacing: 0.055em; white-space: nowrap; }
+.topbar-mark { font-size: 21px; letter-spacing: 0.055em; white-space: nowrap; }
 .topbar-mark .dot { color: var(--accent); }
 
 .nav {
   display: flex;
-  gap: 26px;
-  font-size: 15.5px;
+  gap: 28px;
+  font-size: 16px;
   letter-spacing: 0.03em;
   margin-left: auto;
   flex-wrap: wrap;
@@ -82,14 +88,15 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 /* ----------------------------------------------------------- nameplate -- */
 
-.nameplate { padding: clamp(30px, 8vw, 84px) 0 clamp(32px, 7vw, 70px); }
+.nameplate { padding-block: 76px 66px; }
 
 .nameplate-word {
-  font-size: clamp(50px, 13.5vw, 148px);
+  font-size: 132px;
   line-height: 0.86;
   letter-spacing: -0.012em;
   margin: 0;
   font-weight: normal;
+  white-space: nowrap;
 }
 .nameplate-word .dot { color: var(--accent); }
 
@@ -97,23 +104,24 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   border: 0;
   height: 2px;
   background: var(--accent);
-  margin: clamp(20px, 3.4vw, 34px) 0 clamp(16px, 2.4vw, 24px);
+  margin: 32px 0 22px;
+  width: 100%;
 }
 
 .nameplate-line {
-  font-size: clamp(20px, 3vw, 32px);
+  font-size: 30px;
   line-height: 1.25;
   margin: 0;
-  max-width: 20ch;
+  white-space: nowrap;   /* one line; released at narrow widths below */
 }
 
 /* ------------------------------------------------------- skyline strip --
-   Light grey pixel haze sits over the image so it reads as a texture
-   rather than a photograph. */
+   The photograph should read clearly. A light white wash sits over it so it
+   sits back from the text without hiding it. */
 
 .skyline {
   background: var(--band);
-  height: clamp(200px, 28vw, 340px);
+  height: 300px;
   position: relative;
   overflow: hidden;
   border-top: 1px solid var(--hair);
@@ -126,40 +134,32 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   height: 100%;
   object-fit: cover;
   object-position: center bottom;
-  opacity: 0.085;
-  image-rendering: pixelated;
+  opacity: 0.42;          /* lower toward 0.30 if a photograph feels too strong */
 }
 .skyline::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-color: rgba(217, 217, 217, 0.28);
-  background-image:
-    repeating-linear-gradient(0deg,  rgba(226,226,226,0.55) 0 2px, rgba(226,226,226,0) 2px 5px),
-    repeating-linear-gradient(90deg, rgba(226,226,226,0.55) 0 2px, rgba(226,226,226,0) 2px 5px);
+  background: rgba(255, 255, 255, 0.30);   /* the white fade */
 }
 
 /* ------------------------------------------------------------ sections -- */
 
-.section { padding: clamp(46px, 7vw, 82px) 0; }
+.section { padding-block: 78px; }
 .section + .section { border-top: 1px solid var(--hair); }
 
-.section-title {
-  font-size: 22px;
-  font-weight: normal;
-  margin: 0 0 20px;
-}
+.section-title { font-size: 22px; font-weight: normal; margin: 0 0 20px; }
 
-.page-head { padding: clamp(32px, 6vw, 60px) 0 clamp(22px, 4vw, 38px); }
+.page-head { padding-block: 56px 36px; }
 .page-title {
-  font-size: clamp(32px, 6vw, 54px);
+  font-size: 52px;
   line-height: 1.06;
-  margin: 0 0 18px;
+  margin: 0 0 20px;
   font-weight: normal;
   letter-spacing: -0.008em;
 }
-.page-head .rule-accent { max-width: 110px; margin-bottom: 0; }
+.page-head .rule-accent { width: 110px; margin-bottom: 0; }
 
 /* ------------------------------------------------------ research index -- */
 
@@ -187,7 +187,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .filters button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--accent); }
 
 .note {
-  padding: 26px 0;
+  padding-block: 26px;
   border-bottom: 1px solid var(--hair);
   display: grid;
   grid-template-columns: 84px minmax(0, 1fr) auto;
@@ -223,9 +223,10 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .footer {
   background: var(--band);
   border-top: 1px solid var(--hair);
-  padding: clamp(36px, 5vw, 56px) 0 clamp(28px, 4vw, 42px);
   font-size: 15px;
 }
+.footer .wrap { padding-block: 54px 40px; }
+
 .footer-top {
   display: flex;
   justify-content: space-between;
@@ -233,13 +234,13 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   flex-wrap: wrap;
   align-items: flex-start;
 }
-.footer-mark { font-size: 20px; letter-spacing: 0.055em; }
+.footer-mark { font-size: 21px; letter-spacing: 0.055em; }
 .footer-mark .dot { color: var(--accent); }
 .footer-place { margin: 6px 0 0; color: var(--muted); font-size: 14.5px; }
 .footer-links { display: flex; flex-direction: column; gap: 7px; text-align: right; }
 .footer-legal {
-  margin: 26px 0 0;
-  padding-top: 16px;
+  margin: 30px 0 0;
+  padding-top: 18px;
   border-top: 1px solid var(--hair);
   color: var(--muted);
   font-size: 14px;
@@ -252,41 +253,60 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .footer-legal a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
 .footer-legal a:hover { color: var(--accent); }
 
-/* -------------------------------------------------------------- mobile -- */
+/* ---------------------------------------------------------- breakpoints --
+   Fixed steps rather than vw units, so browser zoom scales the whole page
+   uniformly and nothing drifts out of alignment. */
 
-@media (max-width: 760px) {
+@media (max-width: 1120px) {
+  :root { --gutter: 48px; }
+  .nameplate-word { font-size: 104px; }
+  .page-title { font-size: 46px; }
+}
+
+@media (max-width: 860px) {
+  :root { --gutter: 36px; }
+  .nameplate { padding-block: 52px 46px; }
+  .nameplate-word { font-size: 76px; }
+  .nameplate-line { font-size: 26px; }
+  .skyline { height: 240px; }
+  .section { padding-block: 58px; }
+  .page-head { padding-block: 42px 30px; }
+  .page-title { font-size: 40px; }
+}
+
+@media (max-width: 640px) {
+  :root { --gutter: 24px; }
   body { font-size: 17px; line-height: 1.6; }
 
-  .topbar { padding-top: 20px; padding-bottom: 16px; }
-  .nav { gap: 20px; font-size: 15px; }
+  .topbar { padding-block: 20px 16px; min-height: 0; }
+  .nav { gap: 22px; font-size: 15.5px; }
 
-  .nameplate { padding: 34px 0 38px; }
-  .nameplate-word { font-size: clamp(46px, 15vw, 78px); }
-  .nameplate-line { font-size: 21px; max-width: none; }
+  .nameplate { padding-block: 40px 38px; }
+  .nameplate-word { font-size: 58px; }
+  .nameplate-line { font-size: 22px; white-space: normal; }
+  .rule-accent { margin: 24px 0 18px; }
 
-  .skyline { height: clamp(170px, 42vw, 230px); }
+  .skyline { height: 190px; }
 
-  .section { padding: 44px 0; }
-  .page-title { font-size: clamp(30px, 9vw, 42px); }
+  .section { padding-block: 46px; }
+  .page-title { font-size: 34px; }
 
-  .note {
-    grid-template-columns: 1fr;
-    gap: 9px;
-    padding: 24px 0;
-  }
+  .note { grid-template-columns: 1fr; gap: 9px; padding-block: 24px; }
   .note-meta .num { display: inline; }
   .note-meta .num::after { content: " / "; color: var(--muted); }
   .note-body { max-width: none; }
   .note-action { justify-self: start; margin-top: 6px; }
 
+  .footer .wrap { padding-block: 42px 32px; }
   .footer-top { flex-direction: column; gap: 22px; }
   .footer-links { flex-direction: row; flex-wrap: wrap; gap: 8px 22px; text-align: left; }
   .footer-legal { flex-direction: column; gap: 8px; }
 }
 
-@media (max-width: 380px) {
-  .nameplate-word { font-size: 44px; }
-  .nav { gap: 16px; font-size: 14.5px; }
+@media (max-width: 400px) {
+  :root { --gutter: 20px; }
+  .nameplate-word { font-size: 46px; }
+  .nav { gap: 16px; font-size: 15px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
