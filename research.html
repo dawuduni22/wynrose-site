@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research — Wynrose Investment Research</title>
+<meta name="description" content="Independent research notes on Gulf-listed companies.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="styles.css">
+<!-- PAGE IS NOT LINKED FROM THE NAV YET. It is reachable only by direct URL
+     until the first notes are finished. To switch it on, uncomment the
+     Research link in index.html, about.html and disclaimer.html. -->
+<meta name="robots" content="noindex">
+</head>
+<body>
+
+<div class="wrap topbar">
+  <a class="topbar-mark" href="index.html">Wynrose<span class="dot">.</span></a>
+  <nav class="nav" aria-label="Main">
+    <a href="research.html" aria-current="page">Research</a>
+    <a href="about.html">About</a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </nav>
+</div>
+
+<header class="wrap page-head">
+  <h1 class="page-title">Recent notes</h1>
+  <hr class="rule-accent">
+</header>
+
+<main>
+  <section class="wrap section">
+
+    <!-- Filters run off the data-sector attribute on each .note below.
+         Add a sector here and on the note, and it works. -->
+    <div class="filters" role="group" aria-label="Filter notes by sector">
+      <button type="button" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" data-filter="materials">Materials &amp; Industrials</button>
+      <button type="button" data-filter="realestate">Real Estate</button>
+      <button type="button" data-filter="healthcare">Healthcare</button>
+      <button type="button" data-filter="banks">Banks &amp; Financials</button>
+      <button type="button" data-filter="thematic">Thematic</button>
+    </div>
+
+    <!-- ================================================= NOTE TEMPLATE ==
+         Copy one <article> block, change the number, date, sector, title and
+         summary, and point the href at the PDF in /notes.
+         ================================================================= -->
+
+    <article class="note" data-sector="materials">
+      <div class="note-meta">
+        <span class="num">003</span>
+        <span class="date">Placeholder</span>
+      </div>
+      <div class="note-body">
+        <h2 class="note-title">Placeholder title for the first initiation</h2>
+        <p class="note-tag">Initiation</p>
+        <p class="note-summary">Two or three sentences of real summary go here,
+        written so they stand on their own as analysis rather than as a teaser
+        for the full note. State the question the piece asks and the conclusion
+        it reaches. Do not write "read more to find out".</p>
+      </div>
+      <div class="note-action">
+        <a class="btn-view" href="notes/wr-003.pdf" aria-disabled="true">View PDF</a>
+      </div>
+    </article>
+
+    <article class="note" data-sector="realestate">
+      <div class="note-meta">
+        <span class="num">002</span>
+        <span class="date">Placeholder</span>
+      </div>
+      <div class="note-body">
+        <h2 class="note-title">Placeholder title for the second note</h2>
+        <p class="note-tag">Initiation</p>
+        <p class="note-summary">Two or three sentences of real summary go here,
+        written so they stand on their own as analysis rather than as a teaser
+        for the full note. State the question the piece asks and the conclusion
+        it reaches.</p>
+      </div>
+      <div class="note-action">
+        <a class="btn-view" href="notes/wr-002.pdf" aria-disabled="true">View PDF</a>
+      </div>
+    </article>
+
+    <article class="note" data-sector="thematic">
+      <div class="note-meta">
+        <span class="num">001</span>
+        <span class="date">Placeholder</span>
+      </div>
+      <div class="note-body">
+        <h2 class="note-title">Placeholder title for the first thematic piece</h2>
+        <p class="note-tag">Thematic</p>
+        <p class="note-summary">Two or three sentences of real summary go here,
+        written so they stand on their own as analysis rather than as a teaser
+        for the full note. State the question the piece asks and the conclusion
+        it reaches.</p>
+      </div>
+      <div class="note-action">
+        <a class="btn-view" href="notes/wr-001.pdf" aria-disabled="true">View PDF</a>
+      </div>
+    </article>
+
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-mark">Wynrose<span class="dot">.</span></div>
+        <p class="footer-place">Abu Dhabi, United Arab Emirates</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="research.html">Research</a>
+        <a href="about.html">About</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="mailto:contact@wynrose.org">contact@wynrose.org</a>
+      </nav>
+    </div>
+    <div class="footer-legal">
+      <span>Research published for informational purposes only. Not investment advice. <a href="disclaimer.html">Full disclaimer</a>.</span>
+      <span>&copy; 2026 Wynrose Investment Research</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Sector filtering. Plain, no dependencies.
+(function () {
+  var buttons = document.querySelectorAll('.filters button');
+  var notes = document.querySelectorAll('.note');
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var want = btn.dataset.filter;
+
+      buttons.forEach(function (b) {
+        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+      });
+
+      notes.forEach(function (n) {
+        var show = (want === 'all') || (n.dataset.sector === want);
+        n.style.display = show ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
