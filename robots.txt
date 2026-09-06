@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /research
+
+Sitemap: https://www.wynrose.org/sitemap.xml
